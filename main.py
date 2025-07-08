@@ -1,3 +1,5 @@
+import dotenv
+import os
 from datetime import date
 from collections.abc import Callable
 from flask import Flask, abort, render_template, redirect, url_for, flash
@@ -12,10 +14,11 @@ from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 
+dotenv.load_dotenv()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
-app.config['SQLALCHEMY_DATABASE_URI'] = r'sqlite:///c:\Users\astri\Documents\100_days_of_code\69_blog_login\instance\posts.db'
+app.config['SECRET_KEY'] = os.environ.get("FLASK_KEY")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("SQL_PATH")
 ckeditor = CKEditor(app)
 Bootstrap5(app)
 
@@ -252,4 +255,4 @@ def get_user(id: int) -> User:
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5002)
+    app.run(debug=False)

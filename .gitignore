@@ -1,3 +1,5 @@
 .venv
 instance/posts.db
 __pycache__
+.DS_Store
+.env
